@@ -1,0 +1,17 @@
+Reserva de Sala de Reunião:
+
+Sala
+  Agenda
+  Descrição da Sala
+
+Usuário
+  Permissões
+  Auth(ldap/microsoft)
+
+Reserva
+  Usuário pode reservar Sala
+  Sala não pode ser reservada mais de uma vez no mesmo horário
+  Possível editar reserva
+  Possível cancelar a reserva
+  Possível ver quem reservou a Sala
+  Possível ver o motivo e a duração da reunião
