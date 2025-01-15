@@ -1,6 +1,7 @@
 from flask_restful import Api, Resource
 from flask import request
 from .models import Room, Reservation, User
+from datetime import datetime
 from . import db
 
 api = Api()
@@ -43,16 +44,38 @@ api.add_resource(UserResource, "/users")
 class ReservationResource(Resource):
     def get(self):
         reservation = Reservation.query.all()
-        return [{"id": r.id, "user_id": r.user_id} for r in reservation], 200
+        return [{"id": u.id, "usuário": u.username} for u in reservations], 200
 
     def post(self):
         data = request.get_json()
+
+        # Extrair dados
+        room_id = data['room_id']
+        user_id = data['user_id']
+        start_time = datetime.fromisoformat(data['start_time'])
+        end_time = datetime.fromisoformat(data['end_time'])
+
+        # Validação: verificar conflitos de horário
+        conflict = Reservation.query.filter(
+            Reservation.room_id == room_id,
+            Reservation.start_time < end_time,
+            Reservation.end_time > start_time
+        ).first()
+
+        if conflict:
+            return {"error": "Conflito de reserva. Esta sala já está reservada nesse horário."}, 400
+
+        # Criar nova reserva
         reservation = Reservation(
-            user_id=data["user_id"],room_id = data["room_id"], start_time=data["start_time"], end_time = data["end_time"], reason = data["reason"]
+            room_id=room_id,
+            user_id=user_id,
+            start_time=start_time,
+            end_time=end_time,
+            reason=data.get('reason')
         )
         db.session.add(reservation)
         db.session.commit()
-        return {"message": "Reservation created"}, 201
 
+        return {"message": "Reserva criada com sucesso!"}, 201
 
 api.add_resource(ReservationResource, "/reservations")

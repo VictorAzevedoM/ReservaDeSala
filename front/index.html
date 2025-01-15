@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Sala</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Reserva de Sala</h1>
+
+    <!-- Formulário para criar sala -->
+    <h2>Criar Sala</h2>
+    <form id="createRoomForm">
+        <input type="text" id="roomName" placeholder="Nome da Sala" required />
+        <input type="text" id="roomDescription" placeholder="Descrição" />
+        <button type="submit">Criar Sala</button>
+    </form>
+
+    <!-- Lista de Salas -->
+    <h2>Salas Disponíveis</h2>
+    <ul id="roomList"></ul>
+
+    <!-- Formulário para criar usuário -->
+    <h2>Criar Usuário</h2>
+    <form id="createUserForm">
+        <input type="text" id="username" placeholder="Nome do Usuário" required />
+        <button type="submit">Criar Usuário</button>
+    </form>
+
+    <!-- Lista de Usuários -->
+    <h2>Usuários</h2>
+    <ul id="userList"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
